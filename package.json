@@ -1,0 +1,35 @@
+{
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
+  "scripts": {
+    "clean": "lerna exec -- gulp clean --cwd .",
+    "build": "lerna exec -- gulp --cwd .",
+    "lint": "eslint packages/*/src/**/*.js",
+    "test": "jest --coverage",
+    "flow": "flow",
+    "check": "yarn lint && yarn test && yarn flow"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-jest": "^22.1.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-flow": "^6.23.0",
+    "eslint": "^4.17.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-flowtype": "^2.42.0",
+    "eslint-plugin-import": "^2.8.0",
+    "flow-bin": "^0.64.0",
+    "flow-typed": "^2.3.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.1",
+    "gulp-clean": "^0.4.0",
+    "jest": "^22.1.4",
+    "lerna": "^2.9.0"
+  }
+}

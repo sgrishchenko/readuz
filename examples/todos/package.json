@@ -1,0 +1,18 @@
+{
+  "private": true,
+  "name": "todos",
+  "version": "1.0.0",
+  "description": "Use Readuz to create an Todos application",
+  "author": "Sergei Grishchenko <s.i.grishchenko@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "parcel-bundler": "^1.6.2"
+  },
+  "dependencies": {
+    "keycode-js": "^1.0.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
+    "redux": "^3.7.2"
+  }
+}
