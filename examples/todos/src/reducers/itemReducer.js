@@ -1,4 +1,4 @@
-import { ADD_TODO, DELETE_TODO } from '../actions/todosActions';
+import { ADD_TODO, DELETE_TODO, UPDATE_TODO } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -15,6 +15,7 @@ export default (state = {}, action) => {
         },
       };
     }
+
     case DELETE_TODO:
       return Object.entries(state)
         .filter(([id]) => id !== action.id)
@@ -22,6 +23,19 @@ export default (state = {}, action) => {
           ...result,
           [id]: todo,
         }), {});
+
+    case UPDATE_TODO: {
+      const { id } = action.todo;
+
+      return {
+        ...state,
+        [id]: {
+          ...state[id],
+          ...action.todo,
+        },
+      };
+    }
+
     default:
       return state;
   }

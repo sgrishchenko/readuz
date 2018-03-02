@@ -3,12 +3,10 @@ import { KEY_RETURN } from 'keycode-js';
 
 export default class TodoInput extends Component {
   state = {
-    text: '',
+    text: this.props.text,
   };
 
-  onChange = (event) => {
-    this.setState({ text: event.target.value });
-  };
+  onChange = event => this.setState({ text: event.target.value });
 
   onKeyDown = (event) => {
     const text = event.target.value.trim();
@@ -21,7 +19,8 @@ export default class TodoInput extends Component {
   render() {
     return (
       <input
-        placeholder="What needs to be done?"
+        type="text"
+        placeholder={this.props.placeholder}
         value={this.state.text}
         onChange={this.onChange}
         onKeyDown={this.onKeyDown}

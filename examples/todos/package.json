@@ -5,6 +5,9 @@
   "description": "Use Readuz to create an Todos application",
   "author": "Sergei Grishchenko <s.i.grishchenko@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "parcel index.html"
+  },
   "devDependencies": {
     "parcel-bundler": "^1.6.2"
   },
