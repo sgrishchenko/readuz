@@ -1,23 +1,62 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { connect as felaConnect } from 'react-fela';
+import { compose } from 'redux';
 import { applyFilter } from '../actions/filterActions';
 import * as filters from '../constants/filterTypes';
 
-const Filter = props => (
+const Filter = ({ selected, styles, ...props }) => (
   <div>
-    <ul>
+    <ul className={styles.list}>
       {Object.values(filters).map(filter => (
         <li
           key={filter}
           onClick={() => props.applyFilter(filter)}
         >
-          {filter}
+          <div
+            className={`${styles.item} ${filter === selected ? styles.selected : ''}`}
+          >
+            {filter}
+          </div>
         </li>
       ))}
     </ul>
   </div>
 );
 
-export default connect(undefined, {
+const mapStateToProps = state => ({
+  selected: state.filter,
+});
+
+const mapDispatchToProps = {
   applyFilter,
-})(Filter);
+};
+
+const style = {
+  list: {
+    display: 'flex',
+    padding: 0,
+    margin: 0,
+    listStyle: 'none',
+  },
+  item: {
+    padding: '3px 7px',
+    margin: '3px',
+    cursor: 'pointer',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderRadius: '3px',
+    borderColor: 'transparent',
+    ':hover': {
+      borderColor: 'rgba(175, 47, 47, 0.1)',
+    },
+  },
+  selected: {
+    borderColor: 'rgba(175, 47, 47, 0.2)',
+  },
+};
+
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  felaConnect(style),
+)(Filter);

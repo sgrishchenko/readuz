@@ -1,4 +1,4 @@
-import { ADD_TODO, DELETE_TODO, UPDATE_TODO } from '../constants/actionTypes';
+import { ADD_TODO, UPDATE_TODO, DELETE_TODO, DELETE_COMPLETED_TODOS, TOGGLE_ALL_TODOS } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -16,14 +16,6 @@ export default (state = {}, action) => {
       };
     }
 
-    case DELETE_TODO:
-      return Object.entries(state)
-        .filter(([id]) => id !== action.id)
-        .reduce((result, [id, todo]) => ({
-          ...result,
-          [id]: todo,
-        }), {});
-
     case UPDATE_TODO: {
       const { id } = action.todo;
 
@@ -35,6 +27,32 @@ export default (state = {}, action) => {
         },
       };
     }
+
+    case DELETE_TODO:
+      return Object.entries(state)
+        .filter(([id]) => id !== action.id)
+        .reduce((result, [id, todo]) => ({
+          ...result,
+          [id]: todo,
+        }), {});
+
+    case DELETE_COMPLETED_TODOS:
+      return Object.entries(state)
+        .filter(([, todo]) => !todo.completed)
+        .reduce((result, [id, todo]) => ({
+          ...result,
+          [id]: todo,
+        }), {});
+
+    case TOGGLE_ALL_TODOS:
+      return Object.entries(state)
+        .reduce((result, [id, todo]) => ({
+          ...result,
+          [id]: {
+            ...todo,
+            completed: action.complete
+          },
+        }), {});
 
     default:
       return state;

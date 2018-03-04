@@ -1,12 +1,21 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import store from './store';
+import { Provider as FelaProvider } from 'react-fela';
+import { store } from './configs/reduxConfig';
+import { renderer } from './configs/felaConfig';
 import App from './components/App';
+
+renderer.renderStatic({
+  backgroundColor: '#f5f5f5',
+  font: '14px "Helvetica Neue", Helvetica, Arial, sans-serif',
+}, 'body');
 
 render(
   <Provider store={store}>
-    <App />
+    <FelaProvider renderer={renderer}>
+      <App/>
+    </FelaProvider>
   </Provider>,
   document.getElementById('root'),
 );
