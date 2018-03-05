@@ -14,7 +14,7 @@ renderer.renderStatic({
 render(
   <Provider store={store}>
     <FelaProvider renderer={renderer}>
-      <App/>
+      <App />
     </FelaProvider>
   </Provider>,
   document.getElementById('root'),

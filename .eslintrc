@@ -1,13 +1,17 @@
 {
   "extends": [
-    "airbnb-base",
+    "airbnb",
     "plugin:flowtype/recommended"
   ],
   "env": {
+    "browser": true,
     "jest": true
   },
   "parser": "babel-eslint",
   "plugins": [
     "flowtype"
-  ]
+  ],
+  "rules": {
+    "react/prop-types": false
+  }
 }

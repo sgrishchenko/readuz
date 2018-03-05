@@ -44,13 +44,13 @@ class TodoItem extends Component {
             checked={item.completed}
             onChange={this.onCompletedChange}
           />
-          <label
+          <span
             title="Double-click to edit a todo"
             className={styles.text}
             onDoubleClick={this.onDoubleClick}
           >
             {item.text}
-          </label>
+          </span>
           <button
             className={styles.destroy}
             onClick={() => this.props.deleteTodo(id)}

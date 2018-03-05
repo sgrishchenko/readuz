@@ -9,7 +9,7 @@ const TodoList = ({ items, styles }) => (
   <ul className={styles.list}>
     {items.map(id => (
       <li key={id} className={styles.item}>
-        <TodoItem id={id}/>
+        <TodoItem id={id} />
       </li>
     ))}
   </ul>

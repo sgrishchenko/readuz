@@ -1,9 +1,12 @@
-import { ADD_TODO, UPDATE_TODO, DELETE_TODO, DELETE_COMPLETED_TODOS, TOGGLE_ALL_TODOS } from '../constants/actionTypes';
+// @flow
 
-export default (state = {}, action) => {
+import { ADD_TODO, UPDATE_TODO, DELETE_TODO, DELETE_COMPLETED_TODOS, TOGGLE_ALL_TODOS } from '../constants/actionTypes';
+import type { Todo, Action } from '../types';
+
+export default (state: {[string]: Todo} = {}, action: Action<*>) => {
   switch (action.type) {
     case ADD_TODO: {
-      const max = Math.max(...Object.keys(state));
+      const max = Math.max(...Object.keys(state).map(parseInt));
       const id = max === -Infinity ? 0 : max + 1;
 
       return {
@@ -38,7 +41,7 @@ export default (state = {}, action) => {
 
     case DELETE_COMPLETED_TODOS:
       return Object.entries(state)
-        .filter(([, todo]) => !todo.completed)
+        .filter(([, todo]) => todo && typeof todo === 'object' && !todo.completed)
         .reduce((result, [id, todo]) => ({
           ...result,
           [id]: todo,
@@ -50,7 +53,7 @@ export default (state = {}, action) => {
           ...result,
           [id]: {
             ...todo,
-            completed: action.complete
+            completed: action.complete,
           },
         }), {});
 

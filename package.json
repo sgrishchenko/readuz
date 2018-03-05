@@ -7,7 +7,7 @@
   "scripts": {
     "clean": "lerna exec -- gulp clean --cwd .",
     "build": "lerna exec -- gulp --cwd .",
-    "lint": "eslint packages/*/src/**/*.js",
+    "lint": "lerna exec -- eslint --ext .js --ext .jsx src",
     "test": "jest --coverage",
     "flow": "flow",
     "check": "yarn lint && yarn test && yarn flow"
@@ -21,10 +21,12 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-flow": "^6.23.0",
     "eslint": "^4.17.0",
-    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-flowtype": "^2.42.0",
     "eslint-plugin-import": "^2.8.0",
-    "flow-bin": "^0.64.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "flow-bin": "^0.66.0",
     "flow-typed": "^2.3.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.1",

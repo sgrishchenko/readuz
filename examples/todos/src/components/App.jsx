@@ -16,23 +16,25 @@ const App = ({ todosExists, styles, ...props }) => (
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.toggle}>
-          {todosExists && <Toggle/>}
+          {todosExists && <Toggle />}
         </div>
         <TodoInput
           placeholder="What needs to be done?"
           onSave={props.addTodo}
         />
       </div>
-      <TodoList/>
-      {todosExists && <div className={styles.footer}>
-        <div className={styles.footerEdging}>
-          <Counter/>
+      <TodoList />
+      {todosExists && (
+        <div className={styles.footer}>
+          <div className={styles.footerEdging}>
+            <Counter />
+          </div>
+          <Filter />
+          <div className={styles.footerEdging}>
+            <Cleaner />
+          </div>
         </div>
-        <Filter/>
-        <div className={styles.footerEdging}>
-          <Cleaner/>
-        </div>
-      </div>}
+        )}
     </div>
   </div>
 );
