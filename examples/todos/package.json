@@ -9,19 +9,20 @@
     "start": "parcel index.html"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.6.2"
+    "parcel-bundler": "^1.7.1"
   },
   "dependencies": {
-    "fela": "^6.1.4",
-    "fela-identifier": "^1.0.0",
-    "fela-plugin-fallback-value": "^5.0.16",
-    "fela-plugin-placeholder-prefixer": "^5.0.17",
-    "fela-plugin-prefixer": "^5.0.17",
-    "keycode-js": "^1.0.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-fela": "^7.0.1",
+    "fela": "^6.1.7",
+    "fela-identifier": "^1.0.2",
+    "fela-plugin-fallback-value": "^5.0.17",
+    "fela-plugin-placeholder-prefixer": "^5.0.18",
+    "fela-plugin-prefixer": "^5.0.18",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-fela": "^7.2.0",
     "react-redux": "^5.0.7",
-    "redux": "^3.7.2"
+    "redux": "^4.0.0",
+    "redux-actions": "^2.3.0",
+    "uuid": "^3.2.1"
   }
 }

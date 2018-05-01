@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
@@ -11,11 +13,15 @@ renderer.renderStatic({
   font: '14px "Helvetica Neue", Helvetica, Arial, sans-serif',
 }, 'body');
 
-render(
-  <Provider store={store}>
-    <FelaProvider renderer={renderer}>
-      <App />
-    </FelaProvider>
-  </Provider>,
-  document.getElementById('root'),
-);
+const root = document.getElementById('root');
+
+if (root) {
+  render(
+    <Provider store={store}>
+      <FelaProvider renderer={renderer}>
+        <App />
+      </FelaProvider>
+    </Provider>,
+    root,
+  );
+}

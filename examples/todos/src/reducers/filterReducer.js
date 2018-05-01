@@ -1,14 +1,11 @@
 // @flow
 
+import { handleActions, type ActionType } from 'redux-actions';
 import { APPLY_FILTER } from '../constants/actionTypes';
 import { ALL } from '../constants/filterTypes';
-import type { Filter, Action } from '../types';
+import { applyFilter } from '../actions/filterActions';
+import type { Filter } from '../types';
 
-export default (state: Filter = ALL, action: Action<*>) => {
-  switch (action.type) {
-    case APPLY_FILTER:
-      return action.filter;
-    default:
-      return state;
-  }
-};
+export default handleActions({
+  [APPLY_FILTER]: (state: Filter, { payload }: ActionType<typeof applyFilter>) => payload,
+}, ALL);

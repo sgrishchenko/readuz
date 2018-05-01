@@ -1,16 +1,20 @@
 // @flow
 
-import * as actionTypes from './constants/actionTypes';
 import * as filterTypes from './constants/filterTypes';
-
-export type Action<T: {}> = T & {
-  type: $Values<typeof actionTypes>,
-}
 
 export type Filter = $Values<typeof filterTypes>
 
 export type Todo = {
-  id: number,
+  id: string,
   completed: boolean,
   text: string,
+}
+
+export type Todos = {
+  [string]: Todo
+}
+
+export type State = {
+  items: Todos,
+  filter: Filter,
 }

@@ -1,7 +1,9 @@
 // @flow
 
+import { createAction } from 'redux-actions';
 import { APPLY_FILTER } from '../constants/actionTypes';
-import Filter from '../components/Filter';
+
+import type { Filter } from '../types';
 
 // eslint-disable-next-line import/prefer-default-export
-export const applyFilter = (filter: Filter) => ({ type: APPLY_FILTER, filter });
+export const applyFilter = createAction(APPLY_FILTER, (filter: Filter) => filter);
