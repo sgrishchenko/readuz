@@ -10,8 +10,5 @@
   "parser": "babel-eslint",
   "plugins": [
     "flowtype"
-  ],
-  "rules": {
-    "react/prop-types": false
-  }
+  ]
 }

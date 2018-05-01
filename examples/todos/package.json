@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "todos",
+  "name": "@readuz-examples/todos",
   "version": "1.0.0",
   "description": "Use Readuz to create an Todos application",
   "author": "Sergei Grishchenko <s.i.grishchenko@gmail.com>",

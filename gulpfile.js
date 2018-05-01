@@ -1,6 +1,7 @@
 const gulp = require('gulp');
 const clean = require('gulp-clean');
 const babel = require('gulp-babel');
+const { exec } = require('child_process');
 
 gulp.task('clean', () =>
   gulp.src(['lib', 'es'], { read: false })
@@ -26,4 +27,11 @@ gulp.task('es', ['clean'], () =>
     }))
     .pipe(gulp.dest('es')));
 
-gulp.task('default', ['lib', 'es']);
+gulp.task('types', ['clean'], (callback) => {
+  exec(
+    'flow-copy-source src lib --ignore **/*.test.js',
+    error => callback(error),
+  );
+});
+
+gulp.task('default', ['lib', 'es', 'types']);

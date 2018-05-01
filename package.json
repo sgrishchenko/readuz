@@ -6,11 +6,10 @@
   ],
   "scripts": {
     "clean": "lerna exec -- gulp clean --cwd .",
-    "build": "lerna exec -- gulp --cwd .",
+    "build": "lerna --ignore @readuz-examples/* exec -- gulp --cwd .",
     "lint": "lerna exec -- eslint --ext .js --ext .jsx src",
     "test": "jest --coverage",
-    "flow": "flow",
-    "verify": "yarn check && yarn lint && yarn test && yarn flow"
+    "verify": "yarn check --integrity && yarn lint && yarn test && yarn flow"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -27,6 +26,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
     "flow-bin": "^0.71.0",
+    "flow-copy-source": "^1.3.0",
     "flow-typed": "^2.4.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.1",

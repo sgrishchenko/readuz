@@ -4,6 +4,7 @@
   "description": "Dependency Injection for Functional Programming",
   "main": "lib/index.js",
   "module": "es/index.js",
+  "typings": "index.d.ts",
   "author": "Sergei Grishchenko <s.i.grishchenko@gmail.com>",
   "license": "MIT"
 }
