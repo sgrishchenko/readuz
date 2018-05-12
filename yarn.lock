@@ -2915,6 +2915,15 @@ fela-identifier@^1.0.2:
   dependencies:
     fast-loops "^1.0.0"
 
+fela-monolithic@^5.0.21:
+  version "5.0.21"
+  resolved "https://registry.yarnpkg.com/fela-monolithic/-/fela-monolithic-5.0.21.tgz#d9438a7edbe5011fb1cff706ee3041c8cad1771a"
+  dependencies:
+    css-in-js-utils "^2.0.0"
+    fast-loops "^1.0.0"
+    fela-utils "^8.0.6"
+    isobject "^3.0.1"
+
 fela-plugin-custom-property@^7.0.1:
   version "7.0.2"
   resolved "https://registry.yarnpkg.com/fela-plugin-custom-property/-/fela-plugin-custom-property-7.0.2.tgz#c4c7ad349ece42010fd60e8a62c6776931cd37fe"

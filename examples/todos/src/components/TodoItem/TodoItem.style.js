@@ -1,11 +1,11 @@
 // @flow
 
 import { combineRules } from 'fela';
-import { identifier } from '../../configs/felaConfig';
+import { identifier } from '../../felaConfig';
 import activeIcon from './active.svg';
 import completedIcon from './completed.svg';
 
-import type { TodoItemProps } from './TodoItem';
+import type { TodoItemProps } from './index';
 
 const destroy = identifier();
 
@@ -18,6 +18,7 @@ export default {
     },
   },
   checkbox: {
+    width: '40px',
     appearance: 'none',
     outline: 'none',
     ':after': {

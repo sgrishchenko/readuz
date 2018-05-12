@@ -1,6 +1,6 @@
 // @flow
 
-import type { ToggleProps } from './Toggle';
+import type { ToggleProps } from './index';
 
 export default ({ allCompleted }: ToggleProps) => ({
   toggle: {

@@ -3,9 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-export type CounterProps = {
-  count: number,
-}
+import type { CounterProps } from './index';
 
 const Counter = ({ count }: CounterProps) => (
   <span>

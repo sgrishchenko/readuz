@@ -14,6 +14,7 @@
   "dependencies": {
     "fela": "^6.1.7",
     "fela-identifier": "^1.0.2",
+    "fela-monolithic": "^5.0.21",
     "fela-plugin-fallback-value": "^5.0.17",
     "fela-plugin-placeholder-prefixer": "^5.0.18",
     "fela-plugin-prefixer": "^5.0.18",
@@ -21,6 +22,7 @@
     "react-dom": "^16.3.2",
     "react-fela": "^7.2.0",
     "react-redux": "^5.0.7",
+    "readuz": "^1.0.0",
     "redux": "^4.0.0",
     "redux-actions": "^2.3.0",
     "uuid": "^3.2.1"
