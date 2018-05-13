@@ -4,7 +4,29 @@
   "description": "Dependency Injection for Functional Programming",
   "main": "lib/index.js",
   "module": "es/index.js",
+  "jsnext:main": "es/index.js",
   "typings": "index.d.ts",
   "author": "Sergei Grishchenko <s.i.grishchenko@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "files": [
+    "LICENSE",
+    "README.md",
+    "index.d.ts",
+    "lib/**",
+    "es/**"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sgrishchenko/readuz.git"
+  },
+  "keywords": [
+    "di",
+    "fp",
+    "dependency injection",
+    "functional programming"
+  ],
+  "bugs": {
+    "url": "https://github.com/sgrishchenko/readuz/issues"
+  },
+  "homepage": "https://github.com/sgrishchenko/readuz#readme"
 }
