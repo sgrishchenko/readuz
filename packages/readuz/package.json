@@ -1,6 +1,6 @@
 {
   "name": "readuz",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Dependency Injection for Functional Programming",
   "main": "lib/index.js",
   "module": "es/index.js",
