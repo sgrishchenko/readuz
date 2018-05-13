@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@readuz-examples/todos",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Use Readuz to create an Todos application",
   "author": "Sergei Grishchenko <s.i.grishchenko@gmail.com>",
   "license": "MIT",
@@ -22,7 +22,7 @@
     "react-dom": "^16.3.2",
     "react-fela": "^7.2.0",
     "react-redux": "^5.0.7",
-    "readuz": "^1.0.0",
+    "readuz": "^0.0.0",
     "redux": "^4.0.0",
     "redux-actions": "^2.3.0",
     "uuid": "^3.2.1"
