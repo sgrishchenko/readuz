@@ -5,4 +5,4 @@ export type TodoListProps = {
   styles?: Object,
 }
 
-export { default } from './TodoList';
+export { TodoList } from './TodoList';

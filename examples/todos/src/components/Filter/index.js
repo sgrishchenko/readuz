@@ -8,5 +8,4 @@ export type FilterProps = {
   styles?: Object,
 }
 
-export { default } from './Filter';
-
+export { Filter } from './Filter';

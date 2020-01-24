@@ -63,5 +63,5 @@ export default ((...args: Function[]) => {
   const dependencies = args.slice(0, -1);
   const [target] = args.slice(-1);
 
-  return env => target(...dependencies.map(dep => dep(env)(env)));
+  return (env) => target(...dependencies.map((dep) => dep(env)(env)));
 }: Inject);

@@ -8,4 +8,4 @@ export type ToggleProps = {
   styles?: Object,
 }
 
-export { default } from './Toggle';
+export { Toggle } from './Toggle';

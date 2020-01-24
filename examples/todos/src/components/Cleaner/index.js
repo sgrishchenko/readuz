@@ -8,4 +8,4 @@ export type CleanerProps = {
   styles?: Object,
 }
 
-export { default } from './Cleaner';
+export { Cleaner } from './Cleaner';

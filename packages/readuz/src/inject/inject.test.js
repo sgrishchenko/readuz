@@ -8,8 +8,8 @@ describe('inject', () => {
       second: 'Second',
     };
 
-    const dev1 = env => env.first;
-    const dev2 = env => env.second;
+    const dev1 = (env) => env.first;
+    const dev2 = (env) => env.second;
     const target = jest.fn();
 
     const reader = inject(
@@ -29,11 +29,11 @@ describe('inject', () => {
 
     const first = () => 'Result';
     const second = inject(
-      env => env.first,
-      injected => injected,
+      (env) => env.first,
+      (injected) => injected,
     );
     const third = inject(
-      env => env.second,
+      (env) => env.second,
       target,
     );
 

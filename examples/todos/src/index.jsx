@@ -1,15 +1,19 @@
 // @flow
 
-import { combineReaders } from 'readuz';
+import { combineReaders, type Reader } from 'readuz';
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import { Provider as FelaProvider } from 'react-fela';
+import type { ActionType } from 'redux-actions';
+import { createStore, type Reducer } from 'redux';
+import { RendererProvider } from 'react-fela';
 import { renderer } from './felaConfig';
-import AppReader from './components/App';
-import rootReducerReader from './reducers/rootReducer';
-import rootEnv, { simplifiedRootEnv } from './rootEnv';
+import { App as AppReader } from './components/App';
+import { rootReducer as rootReducerReader } from './reducers/rootReducer';
+import { rootEnv, simplifiedRootEnv } from './rootEnv';
+import type { ComponentEnv } from './components/componentEnv';
+import type { ReducerEnv } from './reducers/reducerEnv';
+import type { State } from './types';
 
 renderer.renderStatic({
   backgroundColor: '#f5f5f5',
@@ -20,16 +24,22 @@ const store = createStore(() => ({}: any));
 const root = document.getElementById('root');
 
 class Container extends Component<{}, { simplified: boolean }> {
-  state = {
-    simplified: false,
-  };
+  constructor() {
+    super();
+
+    this.state = {
+      simplified: false,
+    };
+  }
 
   onSwitchEnv = (event: SyntheticInputEvent<HTMLInputElement>) => {
     this.setState({ simplified: event.target.checked });
   };
 
   render() {
-    const env = this.state.simplified
+    const { simplified } = this.state;
+
+    const env = simplified
       ? simplifiedRootEnv
       : rootEnv;
 
@@ -37,8 +47,8 @@ class Container extends Component<{}, { simplified: boolean }> {
       components: App,
       reducers: rootReducer,
     } = combineReaders({
-      components: AppReader,
-      reducers: rootReducerReader,
+      components: (AppReader: Reader<ComponentEnv, React$ComponentType<{}>>),
+      reducers: (rootReducerReader: Reader<ReducerEnv, Reducer<State, ActionType<any>>>),
     })(env);
 
     store.replaceReducer(rootReducer);
@@ -49,7 +59,7 @@ class Container extends Component<{}, { simplified: boolean }> {
           <input
             id="switchEnv"
             type="checkbox"
-            value={this.state.simplified}
+            value={simplified}
             onChange={this.onSwitchEnv}
           />
           Simplified
@@ -65,9 +75,9 @@ class Container extends Component<{}, { simplified: boolean }> {
 if (root) {
   render(
     <Provider store={store}>
-      <FelaProvider renderer={renderer}>
+      <RendererProvider renderer={renderer}>
         <Container />
-      </FelaProvider>
+      </RendererProvider>
     </Provider>,
     root,
   );

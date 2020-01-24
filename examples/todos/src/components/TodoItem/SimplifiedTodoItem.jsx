@@ -1,6 +1,6 @@
 // @flow
 
-import { inject } from 'readuz';
+import { inject, type Reader } from 'readuz';
 import React from 'react';
 import { connect } from 'react-redux';
 import { connect as felaConnect } from 'react-fela';
@@ -11,10 +11,10 @@ import type { State } from '../../types';
 import type { ComponentEnv } from '../componentEnv';
 import type { TodoItemProps } from './index';
 
-export default inject(
+export const SimplifiedTodoItem: Reader<ComponentEnv, React$ComponentType<{ id: string }>> = inject(
   (env: ComponentEnv) => env.TodoItem.style,
   (style) => {
-    const TodoItem = ({
+    const TodoItemComponent = ({
       id, item, deleteTodo, updateTodo, styles = {},
     }: TodoItemProps) => {
       const onCompletedChange = () => updateTodo({
@@ -31,11 +31,13 @@ export default inject(
             title="Click to mark todo as completed"
             className={styles.text}
             onClick={onCompletedChange}
-            onKeyDown={event => event.key === 'Enter' && onCompletedChange()}
+            onKeyDown={(event) => event.key === 'Enter' && onCompletedChange()}
           >
             {item.text}
           </span>
           <button
+            type="button"
+            aria-label="Delete todo"
             className={styles.destroy}
             onClick={() => deleteTodo(id)}
           />
@@ -55,6 +57,6 @@ export default inject(
     return compose(
       connect(mapStateToProps, mapDispatchToProps),
       felaConnect(style),
-    )(TodoItem);
+    )(TodoItemComponent);
   },
 );

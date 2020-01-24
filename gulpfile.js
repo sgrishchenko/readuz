@@ -3,35 +3,47 @@ const clean = require('gulp-clean');
 const babel = require('gulp-babel');
 const { exec } = require('child_process');
 
-gulp.task('clean', () =>
-  gulp.src(['lib', 'es'], { read: false })
-    .pipe(clean()));
+function clear() {
+  return gulp.src(['lib', 'es'], { read: false, allowEmpty: true })
+    .pipe(clean());
+}
 
-gulp.task('lib', ['clean'], () =>
-  gulp.src(['src/**/*.js', '!src/**/*.test.js'])
-    .pipe(babel())
-    .pipe(gulp.dest('lib')));
-
-gulp.task('es', ['clean'], () =>
-  gulp.src(['src/**/*.js', '!src/**/*.test.js'])
+function lib() {
+  return gulp.src(['src/**/*.js', '!src/**/*.test.js'])
     .pipe(babel({
-      babelrc: false,
+      rootMode: 'upward',
+    }))
+    .pipe(gulp.dest('lib'));
+}
+
+function es() {
+  return gulp.src(['src/**/*.js', '!src/**/*.test.js'])
+    .pipe(babel({
+      rootMode: 'upward',
       presets: [
-        ['env', { modules: false }],
-        'flow',
-      ],
-      plugins: [
-        'transform-class-properties',
-        'transform-object-rest-spread',
+        ['@babel/preset-env', { modules: false }],
       ],
     }))
-    .pipe(gulp.dest('es')));
+    .pipe(gulp.dest('es'));
+}
 
-gulp.task('types', ['clean'], (callback) => {
+function types(callback) {
   exec(
     'flow-copy-source src lib --ignore **/*.test.js',
-    error => callback(error),
+    (error) => callback(error),
   );
-});
+}
 
-gulp.task('default', ['lib', 'es', 'types']);
+exports.clear = clear;
+exports.lib = lib;
+exports.es = es;
+exports.types = types;
+
+exports.default = gulp.series(
+  clear,
+  gulp.parallel(
+    lib,
+    es,
+    types,
+  ),
+);

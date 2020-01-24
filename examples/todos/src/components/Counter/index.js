@@ -4,4 +4,4 @@ export type CounterProps = {
   count: number,
 }
 
-export { default } from './Counter';
+export { Counter } from './Counter';

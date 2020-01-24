@@ -10,5 +10,8 @@
   "parser": "babel-eslint",
   "plugins": [
     "flowtype"
-  ]
+  ],
+  "rules": {
+    "import/prefer-default-export": "off"
+  }
 }

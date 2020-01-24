@@ -1,6 +1,6 @@
 // @flow
 
-import { inject } from 'readuz';
+import { inject, type Reader } from 'readuz';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { connect as felaConnect } from 'react-fela';
@@ -15,37 +15,46 @@ export type TodoItemState = {
   editing: boolean,
 }
 
-export default inject(
+export const TodoItem: Reader<ComponentEnv, React$ComponentType<{ id: string }>> = inject(
   (env: ComponentEnv) => env.TodoInput.component,
   (env: ComponentEnv) => env.TodoItem.style,
   (TodoInput, style) => {
-    class TodoItem extends Component<TodoItemProps, TodoItemState> {
-      state = {
-        editing: false,
-      };
+    class TodoItemComponent extends Component<TodoItemProps, TodoItemState> {
+      constructor(props: TodoItemProps) {
+        super(props);
 
-      onCompletedChange = (event: SyntheticInputEvent<HTMLInputElement>) => this.props.updateTodo({
-        ...this.props.item,
-        completed: event.target.checked,
-      });
+        this.state = {
+          editing: false,
+        };
+      }
+
+      onCompletedChange = (event: SyntheticInputEvent<HTMLInputElement>) => {
+        const { item, updateTodo } = this.props;
+        updateTodo({
+          ...item,
+          completed: event.target.checked,
+        });
+      };
 
       onDoubleClick = () => this.setState({ editing: true });
 
       onBlur = () => this.setState({ editing: false });
 
       onSave = (text: string) => {
+        const { item, updateTodo } = this.props;
         this.setState({ editing: false });
-        this.props.updateTodo({
-          ...this.props.item,
+        updateTodo({
+          ...item,
           text,
         });
       };
 
       render() {
-        const { id, item } = this.props;
+        const { id, item, deleteTodo } = this.props;
         const { styles = {}, rules = {} } = this.props;
+        const { editing } = this.state;
 
-        return !this.state.editing
+        return !editing
           ? (
             <div className={styles.container}>
               <input
@@ -62,8 +71,10 @@ export default inject(
                 {item.text}
               </span>
               <button
+                type="button"
+                aria-label="Delete todo"
                 className={styles.destroy}
-                onClick={() => this.props.deleteTodo(id)}
+                onClick={() => deleteTodo(id)}
               />
             </div>
           )
@@ -98,6 +109,6 @@ export default inject(
     return compose(
       connect(mapStateToProps, mapDispatchToProps),
       felaConnect(style),
-    )(TodoItem);
+    )(TodoItemComponent);
   },
 );

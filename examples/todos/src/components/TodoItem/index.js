@@ -13,4 +13,4 @@ export type TodoItemProps = {
   rules?: Object,
 }
 
-export { default } from './TodoItem';
+export { TodoItem } from './TodoItem';

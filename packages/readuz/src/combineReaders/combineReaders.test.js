@@ -3,8 +3,8 @@ import combineReaders from './combineReaders';
 
 describe('combineReaders', () => {
   test('should create new reader witch return structure with results for environment', () => {
-    const reader1 = env => env.first;
-    const reader2 = env => env.second;
+    const reader1 = (env) => env.first;
+    const reader2 = (env) => env.second;
 
     const env = {
       reader1: {

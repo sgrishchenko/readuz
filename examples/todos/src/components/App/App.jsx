@@ -1,6 +1,6 @@
 // @flow
 
-import { inject } from 'readuz';
+import { inject, type Reader } from 'readuz';
 import React from 'react';
 import { connect } from 'react-redux';
 import { connect as felaConnect } from 'react-fela';
@@ -11,7 +11,7 @@ import type { State } from '../../types';
 import type { ComponentEnv } from '../componentEnv';
 import type { AppProps } from './index';
 
-export default inject(
+export const App: Reader<ComponentEnv, React$ComponentType<{}>> = inject(
   (env: ComponentEnv) => env.TodoInput.component,
   (env: ComponentEnv) => env.TodoList.component,
   (env: ComponentEnv) => env.Filter.component,
@@ -20,7 +20,7 @@ export default inject(
   (env: ComponentEnv) => env.Cleaner.component,
   (env: ComponentEnv) => env.App.style,
   (TodoInput, TodoList, Filter, Counter, Toggle, Cleaner, style) => {
-    const App = ({ todosExists, addTodo, styles = {} }: AppProps) => (
+    const AppComponent = ({ todosExists, addTodo, styles = {} }: AppProps) => (
       <div className={styles.root}>
         <h1 className={styles.title}>todos</h1>
         <div className={styles.container}>
@@ -60,6 +60,6 @@ export default inject(
     return compose(
       connect(mapStateToProps, mapDispatchToProps),
       felaConnect(style),
-    )(App);
+    )(AppComponent);
   },
 );

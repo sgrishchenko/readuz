@@ -1,6 +1,6 @@
 // @flow
 
-import { inject } from 'readuz';
+import { inject, type Reader } from 'readuz';
 import React from 'react';
 import { connect } from 'react-redux';
 import { connect as felaConnect } from 'react-fela';
@@ -11,16 +11,16 @@ import type { State } from '../../types';
 import type { ComponentEnv } from '../componentEnv';
 import type { ToggleProps } from './index';
 
-export default inject(
+export const Toggle: Reader<ComponentEnv, React$ComponentType<{}>> = inject(
   (env: ComponentEnv) => env.Toggle.style,
   (style) => {
-    const Toggle = ({ allCompleted, toggleAllTodos, styles = {} }: ToggleProps) => (
+    const ToggleComponent = ({ allCompleted, toggleAllTodos, styles = {} }: ToggleProps) => (
       <div
         role="checkbox"
         aria-checked="false"
         tabIndex={0}
         onClick={() => toggleAllTodos(!allCompleted)}
-        onKeyDown={event => event.key === 'Enter' && toggleAllTodos(!allCompleted)}
+        onKeyDown={(event) => event.key === 'Enter' && toggleAllTodos(!allCompleted)}
         className={styles.toggle}
       >
         <div className={styles.toggleIcon} />
@@ -29,7 +29,7 @@ export default inject(
 
     const mapStateToProps = (state: State) => ({
       allCompleted: Object.values(state.items)
-        .every(item => item && typeof item === 'object' && item.completed),
+        .every((item) => item && typeof item === 'object' && item.completed),
     });
 
     const mapDispatchToProps = {
@@ -39,6 +39,6 @@ export default inject(
     return compose(
       connect(mapStateToProps, mapDispatchToProps),
       felaConnect(style),
-    )(Toggle);
+    )(ToggleComponent);
   },
 );

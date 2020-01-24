@@ -1,11 +1,11 @@
 // @flow
 
-import components, { simplifiedComponentEnv } from './components/componentEnv';
-import reducers, { simplifiedReducerEnv } from './reducers/reducerEnv';
+import { componentEnv, simplifiedComponentEnv } from './components/componentEnv';
+import { reducerEnv, simplifiedReducerEnv } from './reducers/reducerEnv';
 
-export default {
-  components,
-  reducers,
+export const rootEnv = {
+  components: componentEnv,
+  reducers: reducerEnv,
 };
 
 export const simplifiedRootEnv = {

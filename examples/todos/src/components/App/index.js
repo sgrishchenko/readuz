@@ -8,4 +8,4 @@ export type AppProps = {
   styles?: Object,
 }
 
-export { default } from './App';
+export { App } from './App';

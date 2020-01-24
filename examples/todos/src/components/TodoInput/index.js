@@ -8,4 +8,4 @@ export type TodoInputProps = {
   styles?: Object,
 };
 
-export { default } from './TodoInput';
+export { TodoInput } from './TodoInput';

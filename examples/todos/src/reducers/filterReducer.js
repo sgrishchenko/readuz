@@ -6,6 +6,6 @@ import { ALL } from '../constants/filterTypes';
 import { applyFilter } from '../actions/filterActions';
 import type { Filter } from '../types';
 
-export default handleActions({
+export const filterReducer = handleActions<Filter, ActionType<any>>({
   [APPLY_FILTER]: (state: Filter, { payload }: ActionType<typeof applyFilter>) => payload,
 }, ALL);

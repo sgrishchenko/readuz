@@ -1,6 +1,6 @@
 // @flow
 
-import { inject } from 'readuz';
+import { inject, type Reader } from 'readuz';
 import React from 'react';
 import { connect } from 'react-redux';
 import { connect as felaConnect } from 'react-fela';
@@ -11,13 +11,13 @@ import type { State } from '../../types';
 import type { ComponentEnv } from '../componentEnv';
 import type { TodoListProps } from './index';
 
-export default inject(
+export const TodoList: Reader<ComponentEnv, React$ComponentType<{}>> = inject(
   (env: ComponentEnv) => env.TodoItem.component,
   (env: ComponentEnv) => env.TodoList.style,
   (TodoItem, style) => {
-    const TodoList = ({ items, styles = {} }: TodoListProps) => (
+    const TodoListComponent = ({ items, styles = {} }: TodoListProps) => (
       <ul className={styles.list}>
-        {items.map(id => (
+        {items.map((id) => (
           <li key={id} className={styles.item}>
             <TodoItem id={id} />
           </li>
@@ -47,6 +47,6 @@ export default inject(
     return compose(
       connect(mapStateToProps, {}),
       felaConnect(style),
-    )(TodoList);
+    )(TodoListComponent);
   },
 );
