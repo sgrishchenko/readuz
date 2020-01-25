@@ -59,6 +59,56 @@ declare module "readuz" {
             dep7: (env: E) => Reader<E, D7>,
             target: (dep1: D1, dep2: D2, dep3: D3, dep4: D4, dep5: D5, dep6: D6, dep7: D7) => T
         ): Reader<E, T>,
+
+        <E, D1, D2, D3, D4, D5, D6, D7, D8, T>(
+            dep1: (env: E) => Reader<E, D1>,
+            dep2: (env: E) => Reader<E, D2>,
+            dep3: (env: E) => Reader<E, D3>,
+            dep4: (env: E) => Reader<E, D4>,
+            dep5: (env: E) => Reader<E, D5>,
+            dep6: (env: E) => Reader<E, D6>,
+            dep7: (env: E) => Reader<E, D7>,
+            dep8: (env: E) => Reader<E, D8>,
+            target: (dep1: D1, dep2: D2, dep3: D3, dep4: D4, dep5: D5, dep6: D6, dep7: D7, dep8: D8) => T
+        ): Reader<E, T>,
+
+        <E, D1, D2, D3, D4, D5, D6, D7, D8, D9, T>(
+            dep1: (env: E) => Reader<E, D1>,
+            dep2: (env: E) => Reader<E, D2>,
+            dep3: (env: E) => Reader<E, D3>,
+            dep4: (env: E) => Reader<E, D4>,
+            dep5: (env: E) => Reader<E, D5>,
+            dep6: (env: E) => Reader<E, D6>,
+            dep7: (env: E) => Reader<E, D7>,
+            dep8: (env: E) => Reader<E, D8>,
+            dep9: (env: E) => Reader<E, D9>,
+            target: (dep1: D1, dep2: D2, dep3: D3, dep4: D4, dep5: D5, dep6: D6, dep7: D7, dep8: D8, dep9: D9) => T
+        ): Reader<E, T>,
+
+        <E, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, T>(
+            dep1: (env: E) => Reader<E, D1>,
+            dep2: (env: E) => Reader<E, D2>,
+            dep3: (env: E) => Reader<E, D3>,
+            dep4: (env: E) => Reader<E, D4>,
+            dep5: (env: E) => Reader<E, D5>,
+            dep6: (env: E) => Reader<E, D6>,
+            dep7: (env: E) => Reader<E, D7>,
+            dep8: (env: E) => Reader<E, D8>,
+            dep9: (env: E) => Reader<E, D9>,
+            dep10: (env: E) => Reader<E, D10>,
+            target: (
+                dep1: D1,
+                dep2: D2,
+                dep3: D3,
+                dep4: D4,
+                dep5: D5,
+                dep6: D6,
+                dep7: D7,
+                dep8: D8,
+                dep9: D9,
+                dep10: D10
+            ) => T
+        ): Reader<E, T>,
     }
 
     const inject: Inject;
