@@ -6,7 +6,7 @@
   ],
   "scripts": {
     "clean": "lerna exec -- gulp clean --cwd .",
-    "build": "lerna exec --ignore @readuz-examples/* -- gulp --cwd .",
+    "build": "lerna exec --no-private -- gulp --cwd .",
     "lint": "lerna exec -- eslint --ext .jsx,.js src",
     "test": "jest --coverage",
     "verify": "yarn check --integrity && yarn lint && yarn test && yarn flow"
@@ -23,6 +23,7 @@
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
+    "eslint-plugin-react-hooks": "^2.3.0",
     "flow-bin": "^0.116.1",
     "flow-copy-source": "^2.0.9",
     "flow-typed": "^2.4.0",

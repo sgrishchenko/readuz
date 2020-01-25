@@ -1,7 +1,7 @@
 // @flow
 
 import { combineReaders, type Reader } from 'readuz';
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import type { ActionType } from 'redux-actions';
@@ -23,54 +23,44 @@ renderer.renderStatic({
 const store = createStore(() => ({}: any));
 const root = document.getElementById('root');
 
-class Container extends Component<{}, { simplified: boolean }> {
-  constructor() {
-    super();
+const Container = () => {
+  const [simplified, setSimplified] = useState(false);
 
-    this.state = {
-      simplified: false,
-    };
-  }
-
-  onSwitchEnv = (event: SyntheticInputEvent<HTMLInputElement>) => {
-    this.setState({ simplified: event.target.checked });
+  const onSwitchEnv = (event: SyntheticInputEvent<HTMLInputElement>) => {
+    setSimplified(event.target.checked);
   };
 
-  render() {
-    const { simplified } = this.state;
+  const env = simplified
+    ? simplifiedRootEnv
+    : rootEnv;
 
-    const env = simplified
-      ? simplifiedRootEnv
-      : rootEnv;
+  const {
+    components: App,
+    reducers: rootReducer,
+  } = combineReaders({
+    components: (AppReader: Reader<ComponentEnv, React$ComponentType<{}>>),
+    reducers: (rootReducerReader: Reader<ReducerEnv, Reducer<State, ActionType<any>>>),
+  })(env);
 
-    const {
-      components: App,
-      reducers: rootReducer,
-    } = combineReaders({
-      components: (AppReader: Reader<ComponentEnv, React$ComponentType<{}>>),
-      reducers: (rootReducerReader: Reader<ReducerEnv, Reducer<State, ActionType<any>>>),
-    })(env);
+  store.replaceReducer(rootReducer);
 
-    store.replaceReducer(rootReducer);
-
-    return (
+  return (
+    <div>
+      <label htmlFor="switchEnv" style={{ position: 'absolute' }}>
+        <input
+          id="switchEnv"
+          type="checkbox"
+          value={simplified}
+          onChange={onSwitchEnv}
+        />
+        Simplified
+      </label>
       <div>
-        <label htmlFor="switchEnv" style={{ position: 'absolute' }}>
-          <input
-            id="switchEnv"
-            type="checkbox"
-            value={simplified}
-            onChange={this.onSwitchEnv}
-          />
-          Simplified
-        </label>
-        <div>
-          <App />
-        </div>
+        <App />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 if (root) {
   render(

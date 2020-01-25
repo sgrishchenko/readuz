@@ -1,58 +1,48 @@
 // @flow
 
 import { inject, type Reader } from 'readuz';
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect as felaConnect } from 'react-fela';
 
 import type { ComponentEnv } from '../componentEnv';
 import type { TodoInputProps } from './index';
 
-export type TodoInputState = {
-  text: string,
-};
-
 export const TodoInput: Reader<ComponentEnv, React$ComponentType<TodoInputProps>> = inject(
   (env: ComponentEnv) => env.TodoInput.style,
   (style) => {
-    class TodoInputComponent extends Component<TodoInputProps, TodoInputState> {
-      constructor(props: TodoInputProps) {
-        super(props);
+    const TodoInputComponent = ({
+      text: defaultText,
+      placeholder,
+      inputRef,
+      onSave,
+      styles = {},
+    }: TodoInputProps) => {
+      const [text, setText] = useState(defaultText || '');
 
-        this.state = {
-          text: props.text || '',
-        };
-      }
-
-      onChange = (event: SyntheticKeyboardEvent<HTMLInputElement>) => {
-        this.setState({ text: event.currentTarget.value });
+      const onChange = (event: SyntheticKeyboardEvent<HTMLInputElement>) => {
+        setText(event.currentTarget.value);
       };
 
-      onKeyDown = (event: SyntheticKeyboardEvent<HTMLInputElement>) => {
-        const text = event.currentTarget.value.trim();
-        const { onSave } = this.props;
-        if (event.key === 'Enter' && text) {
+      const onKeyDown = (event: SyntheticKeyboardEvent<HTMLInputElement>) => {
+        const currentText = event.currentTarget.value.trim();
+        if (event.key === 'Enter' && currentText) {
           onSave(text);
-          this.setState({ text: '' });
+          setText();
         }
       };
 
-      render() {
-        const { placeholder, inputRef, styles = {} } = this.props;
-        const { text } = this.state;
-
-        return (
-          <input
-            type="text"
-            ref={(input) => inputRef && inputRef(input)}
-            className={styles.input}
-            placeholder={placeholder}
-            value={text}
-            onChange={this.onChange}
-            onKeyDown={this.onKeyDown}
-          />
-        );
-      }
-    }
+      return (
+        <input
+          type="text"
+          ref={(input) => inputRef && inputRef(input)}
+          className={styles.input}
+          placeholder={placeholder}
+          value={text}
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+        />
+      );
+    };
 
     return felaConnect(style)(TodoInputComponent);
   },
