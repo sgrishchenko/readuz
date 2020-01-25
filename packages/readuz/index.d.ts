@@ -69,7 +69,16 @@ declare module "readuz" {
             dep6: (env: E) => Reader<E, D6>,
             dep7: (env: E) => Reader<E, D7>,
             dep8: (env: E) => Reader<E, D8>,
-            target: (dep1: D1, dep2: D2, dep3: D3, dep4: D4, dep5: D5, dep6: D6, dep7: D7, dep8: D8) => T
+            target: (
+                dep1: D1,
+                dep2: D2,
+                dep3: D3,
+                dep4: D4,
+                dep5: D5,
+                dep6: D6,
+                dep7: D7,
+                dep8: D8
+            ) => T
         ): Reader<E, T>,
 
         <E, D1, D2, D3, D4, D5, D6, D7, D8, D9, T>(
@@ -82,7 +91,17 @@ declare module "readuz" {
             dep7: (env: E) => Reader<E, D7>,
             dep8: (env: E) => Reader<E, D8>,
             dep9: (env: E) => Reader<E, D9>,
-            target: (dep1: D1, dep2: D2, dep3: D3, dep4: D4, dep5: D5, dep6: D6, dep7: D7, dep8: D8, dep9: D9) => T
+            target: (
+                dep1: D1,
+                dep2: D2,
+                dep3: D3,
+                dep4: D4,
+                dep5: D5,
+                dep6: D6,
+                dep7: D7,
+                dep8: D8,
+                dep9: D9
+            ) => T
         ): Reader<E, T>,
 
         <E, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, T>(
