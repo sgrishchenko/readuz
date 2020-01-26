@@ -1,35 +1,46 @@
 // @flow
 
 import { inject, type Reader } from 'readuz';
-import React from 'react';
-import { connect } from 'react-redux';
-import { connect as felaConnect } from 'react-fela';
+import React, { memo } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { connect as felaConnect, useFela } from 'react-fela';
 import { compose } from 'redux';
 import * as itemActions from '../../actions/itemActions';
 
 import type { State } from '../../types';
 import type { ComponentEnv } from '../componentEnv';
-import type { TodoItemProps } from './index';
 
 export const SimplifiedTodoItem: Reader<ComponentEnv, React$ComponentType<{ id: string }>> = inject(
   (env: ComponentEnv) => env.TodoItem.style,
   (style) => {
-    const TodoItemComponent = ({
-      id, item, deleteTodo, updateTodo, styles = {},
-    }: TodoItemProps) => {
-      const onCompletedChange = () => updateTodo({
-        ...item,
-        completed: !item.completed,
-      });
+    const TodoItemComponent = ({ id }: { id: string }) => {
+      const item = useSelector((state: State) => state.items[id]);
+
+      const dispatch = useDispatch();
+
+      const onCompletedChange = () => {
+        dispatch(
+          itemActions.updateTodo({
+            ...item,
+            completed: !item.completed,
+          }),
+        );
+      };
+
+      const onDeleteClick = () => {
+        dispatch(itemActions.deleteTodo(id));
+      };
+
+      const { css } = useFela({ completed: item.completed });
 
       return (
-        <div className={styles.container}>
+        <div className={css(style.container)}>
           <span
             role="checkbox"
             aria-checked={item.completed}
             tabIndex={0}
             title="Click to mark todo as completed"
-            className={styles.text}
+            className={css(style.text)}
             onClick={onCompletedChange}
             onKeyDown={(event) => event.key === 'Enter' && onCompletedChange()}
           >
@@ -38,24 +49,15 @@ export const SimplifiedTodoItem: Reader<ComponentEnv, React$ComponentType<{ id: 
           <button
             type="button"
             aria-label="Delete todo"
-            className={styles.destroy}
-            onClick={() => deleteTodo(id)}
+            className={css(style.destroy)}
+            onClick={onDeleteClick}
           />
         </div>
       );
     };
 
-    const mapStateToProps = (state: State, props: { id: string }) => ({
-      item: state.items[props.id],
-    });
-
-    const mapDispatchToProps = {
-      deleteTodo: itemActions.deleteTodo,
-      updateTodo: itemActions.updateTodo,
-    };
-
     return compose(
-      connect(mapStateToProps, mapDispatchToProps),
+      memo,
       felaConnect(style),
     )(TodoItemComponent);
   },

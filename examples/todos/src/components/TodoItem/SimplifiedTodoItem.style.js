@@ -1,18 +1,16 @@
 // @flow
 
-import type { TodoItemProps } from './index';
-
 export default {
-  container: ({ item }: TodoItemProps) => ({
+  container: ({ completed }: { completed: boolean }) => ({
     display: 'flex',
     alignItems: 'center',
-    backgroundColor: item.completed ? '#888' : undefined,
+    backgroundColor: completed ? '#888' : undefined,
     ':hover': {
-      backgroundColor: item.completed ? undefined : '#ddd',
+      backgroundColor: completed ? undefined : '#ddd',
     },
   }),
-  text: ({ item }: TodoItemProps) => {
-    const completedStyle = item.completed
+  text: ({ completed }: { completed: boolean }) => {
+    const completedStyle = completed
       ? {
         color: 'white',
         textDecoration: 'line-through',
@@ -43,12 +41,12 @@ export default {
       ...completedStyle,
     };
   },
-  destroy: ({ item }: TodoItemProps) => ({
+  destroy: ({ completed }: { completed: boolean }) => ({
     fontSize: '18px',
     border: 'none',
     cursor: 'pointer',
     fontFamily: 'initial',
-    color: item.completed ? 'white' : undefined,
+    color: completed ? 'white' : undefined,
     backgroundColor: 'transparent',
     height: '45px',
     width: '45px',

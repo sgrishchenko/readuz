@@ -7,7 +7,7 @@ export default {
     margin: 0,
     listStyle: 'none',
   },
-  item: {
+  item: ({ selected }: { selected: boolean }) => ({
     padding: '3px 7px',
     margin: '3px',
     cursor: 'pointer',
@@ -18,8 +18,8 @@ export default {
     ':hover': {
       borderColor: 'rgba(175, 47, 47, 0.1)',
     },
-  },
-  selected: {
-    borderColor: 'rgba(175, 47, 47, 0.2)',
-  },
+    ...selected && {
+      borderColor: 'rgba(175, 47, 47, 0.2)',
+    },
+  }),
 };

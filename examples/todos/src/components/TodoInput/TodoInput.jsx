@@ -1,8 +1,8 @@
 // @flow
 
 import { inject, type Reader } from 'readuz';
-import React, { useState } from 'react';
-import { connect as felaConnect } from 'react-fela';
+import React, { memo, useState } from 'react';
+import { useFela } from 'react-fela';
 
 import type { ComponentEnv } from '../componentEnv';
 import type { TodoInputProps } from './index';
@@ -15,7 +15,7 @@ export const TodoInput: Reader<ComponentEnv, React$ComponentType<TodoInputProps>
       placeholder,
       inputRef,
       onSave,
-      styles = {},
+      extend = {},
     }: TodoInputProps) => {
       const [text, setText] = useState(defaultText || '');
 
@@ -27,15 +27,17 @@ export const TodoInput: Reader<ComponentEnv, React$ComponentType<TodoInputProps>
         const currentText = event.currentTarget.value.trim();
         if (event.key === 'Enter' && currentText) {
           onSave(text);
-          setText();
+          setText('');
         }
       };
+
+      const { css } = useFela();
 
       return (
         <input
           type="text"
           ref={(input) => inputRef && inputRef(input)}
-          className={styles.input}
+          className={css(style.input, extend.input)}
           placeholder={placeholder}
           value={text}
           onChange={onChange}
@@ -44,6 +46,6 @@ export const TodoInput: Reader<ComponentEnv, React$ComponentType<TodoInputProps>
       );
     };
 
-    return felaConnect(style)(TodoInputComponent);
+    return memo(TodoInputComponent);
   },
 );

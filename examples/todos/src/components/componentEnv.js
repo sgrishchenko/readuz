@@ -23,13 +23,11 @@ import { Cleaner } from './Cleaner';
 import cleanerStyle from './Cleaner/Cleaner.style';
 import { Counter } from './Counter';
 
-type Style<P> =
-  | { [string]: {} }
-  | P => { [string]: {} }
+type Style = { [string]: {} | <P>(P) => {} }
 
 type ComponentGroup<E, P> = {
   component: Reader<E, React$ComponentType<P>>,
-  style: Reader<E, Style<P>>,
+  style: Reader<E, Style>,
 }
 
 export type ComponentEnv = {

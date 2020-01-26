@@ -5,7 +5,9 @@ export type TodoInputProps = {
   placeholder?: string,
   inputRef?: (HTMLInputElement | null) => void,
   onSave: string => any,
-  styles?: Object,
+  extend?: {
+    input?: {}
+  },
 };
 
 export { TodoInput } from './TodoInput';

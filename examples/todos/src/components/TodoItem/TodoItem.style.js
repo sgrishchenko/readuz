@@ -5,8 +5,6 @@ import { identifier } from '../../felaConfig';
 import activeIcon from './active.svg';
 import completedIcon from './completed.svg';
 
-import type { TodoItemProps } from './index';
-
 const destroy = identifier();
 
 export default {
@@ -28,23 +26,17 @@ export default {
       content: `url(${completedIcon})`,
     },
   },
-  text: ({ item }: TodoItemProps) => {
-    const completedStyle = item.completed
-      ? {
-        color: '#d9d9d9',
-        textDecoration: 'line-through',
-      }
-      : {};
-
-    return {
-      display: 'block',
-      flexGrow: 1,
-      padding: '15px',
-      fontSize: '24px',
-      transition: 'color 0.4s',
-      ...completedStyle,
-    };
-  },
+  text: ({ completed }: { completed: boolean }) => ({
+    display: 'block',
+    flexGrow: 1,
+    padding: '15px',
+    fontSize: '24px',
+    transition: 'color 0.4s',
+    ...completed && {
+      color: '#d9d9d9',
+      textDecoration: 'line-through',
+    },
+  }),
   destroy: combineRules(destroy, () => ({
     display: 'none',
     fontSize: '30px',

@@ -1,51 +1,54 @@
 // @flow
 
 import { inject, type Reader } from 'readuz';
-import React from 'react';
-import { connect } from 'react-redux';
-import { connect as felaConnect } from 'react-fela';
-import { compose } from 'redux';
+import React, { memo } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useFela } from 'react-fela';
 import * as filters from '../../constants/filterTypes';
 import * as filterActions from '../../actions/filterActions';
 
 import type { State } from '../../types';
 import type { ComponentEnv } from '../componentEnv';
-import type { FilterProps } from './index';
 
 export const Filter: Reader<ComponentEnv, React$ComponentType<{}>> = inject(
   (env: ComponentEnv) => env.Filter.style,
   (style) => {
-    const FilterComponent = ({ selected, applyFilter, styles = {} }: FilterProps) => (
-      <div>
-        <ul className={styles.list}>
-          {Object.keys(filters).map((filterType) => filters[filterType]).map((filter) => (
-            <li key={filter}>
-              <div
-                role="button"
-                tabIndex={0}
-                onClick={() => applyFilter(filter)}
-                onKeyDown={(event) => event.key === 'Enter' && applyFilter(filter)}
-                className={`${styles.item} ${filter === selected ? styles.selected : ''}`}
-              >
-                {filter}
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
+    const FilterComponent = () => {
+      const selected = useSelector((state: State) => state.filter);
 
-    const mapStateToProps = (state: State) => ({
-      selected: state.filter,
-    });
+      const dispatch = useDispatch();
 
-    const mapDispatchToProps = {
-      applyFilter: filterActions.applyFilter,
+      const { css } = useFela({ selected });
+
+      return (
+        <div>
+          <ul className={css(style.list)}>
+            {Object.keys(filters)
+              .map((filterType) => filters[filterType])
+              .map((filter) => {
+                const onClick = () => {
+                  dispatch(filterActions.applyFilter(filter));
+                };
+
+                return (
+                  <li key={filter}>
+                    <div
+                      role="button"
+                      tabIndex={0}
+                      onClick={onClick}
+                      onKeyDown={(event) => event.key === 'Enter' && onClick()}
+                      className={css(style.item)}
+                    >
+                      {filter}
+                    </div>
+                  </li>
+                );
+              })}
+          </ul>
+        </div>
+      );
     };
 
-    return compose(
-      connect(mapStateToProps, mapDispatchToProps),
-      felaConnect(style),
-    )(FilterComponent);
+    return memo(FilterComponent);
   },
 );

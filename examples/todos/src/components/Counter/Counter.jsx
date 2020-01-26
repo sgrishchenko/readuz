@@ -1,22 +1,25 @@
 // @flow
 
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { memo } from 'react';
+import { useSelector } from 'react-redux';
+import type { State } from '../../types';
 
-import type { CounterProps } from './index';
+const CounterComponent = () => {
+  const count = useSelector((state: State) => (
+    Object.values(state.items)
+      .filter((item) => item && typeof item === 'object' && !item.completed)
+      .length
+  ));
 
-const CounterComponent = ({ count }: CounterProps) => (
-  <span>
-    {count}
-    {' '}
-    {count === 1 ? 'item' : 'items'}
-    {' '}
-left
-  </span>
-);
+  return (
+    <span>
+      {count}
+      {' '}
+      {count === 1 ? 'item' : 'items'}
+      {' '}
+        left
+    </span>
+  );
+};
 
-export const Counter: React$ComponentType<{}> = connect((state) => ({
-  count: Object.values(state.items)
-    .filter((item) => item && typeof item === 'object' && !item.completed)
-    .length,
-}))(CounterComponent);
+export const Counter: React$ComponentType<{}> = memo(CounterComponent);
